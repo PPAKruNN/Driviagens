@@ -10,6 +10,6 @@ const post = Joi.object({
 })
 
 
-export const citySchema = {
+export const citiesSchema = {
     post
 };

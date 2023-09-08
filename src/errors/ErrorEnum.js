@@ -1,3 +1,4 @@
 export default {
-    validation: "ValidationError"
+    validation: "ValidationError",
+    duplicate: "DuplicationDBError"
 }
