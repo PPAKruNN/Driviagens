@@ -13,7 +13,25 @@ async function create(origin, destination, start_date) {
 
 };
 
+async function readAll(whereString = "") {
+
+
+    const result = await db.query(`
+        SELECT flights.id, start_date, dest.name as destination, orig.name as origin
+        FROM flights
+        INNER JOIN cities dest
+        ON destination = dest.id
+        INNER JOIN cities orig ON origin = orig.id
+        ${whereString}
+        ORDER BY start_date
+    `);
+
+    return result.rows;
+
+}
+
 
 export const flightsRepository = {
-    create
+    create,
+    readAll
 }

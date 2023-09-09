@@ -19,6 +19,36 @@ async function create(origin, dest, date) {
 
 };
 
+function filterCreator(origin, destination, minDate, maxDate) {
+    
+    const filters = [];
+
+    if(origin) filters.push(`orig.name = '${origin}'`);
+    if(destination) filters.push(`dest.name = '${destination}'`);
+    if(minDate && maxDate) filters.push(`start_date >= '${minDate}' AND start_date <= '${maxDate}'`);
+
+    if(filters.length === 0) return "";
+    const whereString = `WHERE ${filters.join(" AND ")}`
+    
+    console.log(whereString);
+    return whereString;
+
+}
+    
+
+async function read(origin, destination, minDate, maxDate) {
+    
+    const whereString = filterCreator(origin, destination, minDate, maxDate);
+    const searchResult = await flightsRepository.readAll(whereString);
+
+    const flights = searchResult.map( curr => { 
+        curr.start_date = dayjs(curr.start_date).format("DD-MM-YYYY");
+        return curr;
+    });
+
+    return flights;
+}
+
 function dateDiff(date) {
 
     const today = dayjs();
@@ -29,5 +59,6 @@ function dateDiff(date) {
 }
 
 export const flightsService = {
-    create 
+    create,
+    read
 };

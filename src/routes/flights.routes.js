@@ -6,5 +6,6 @@ import { flightSchema } from '../schemas/flights.schema.js';
 const flightsRouter = Router();
 
 flightsRouter.post("/flights", validate(flightSchema.post), flightsController.create);
+flightsRouter.get("/flights", validate(flightSchema.get, "query"), flightsController.read);
 
 export { flightsRouter };

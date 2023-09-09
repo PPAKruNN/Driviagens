@@ -23,6 +23,21 @@ const post = Joi.object({
 
 })
 
+const get = Joi.object({
+
+    origin: Joi.string(),
+
+    destination: Joi.string(),
+    
+    "smaller-date":  Joi.date()
+                        .format("DD-MM-YYYY"),
+
+    "bigger-date":  Joi.date()
+                        .format("DD-MM-YYYY"),
+
+}).and('smaller-date', 'bigger-date');
+
 export const flightSchema = {
-    post
+    post,
+    get
 };

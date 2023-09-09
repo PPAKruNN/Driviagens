@@ -3,5 +3,6 @@ export default {
     duplicate: "DuplicationDBError",
     badRoute: "BadRouteError",
     badDate: "BadDateError",
-    unknown: "UnknownError"
+    badDateFilter: "BadDateFilterError",
+    unknown: "UnknownError",
 }

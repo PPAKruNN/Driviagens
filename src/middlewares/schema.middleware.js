@@ -1,10 +1,12 @@
 import { ValidationError } from "../errors/ValidationError.js";
 
-export default function validate(schema) {
+export default function validate(schema, type = "body") {
 
     return (req, res, next) => {
-        
-        const result = schema.validate(req.body);
+
+        const target = req[type];
+
+        const result = schema.validate(target);
         if(result.error) throw ValidationError(result.error);
         
         next();
