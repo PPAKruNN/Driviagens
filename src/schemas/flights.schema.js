@@ -1,4 +1,7 @@
-import Joi from 'joi';
+import JoiVanilla from 'joi';
+import JoiDate from '@joi/date';
+
+const Joi = JoiVanilla.extend(JoiDate);
 
 const post = Joi.object({
 
@@ -15,9 +18,8 @@ const post = Joi.object({
             .required(),
     
     date: Joi.date()
-            .required()
             .format("DD-MM-YYYY")
-            .raw()
+            .required()
 
 })
 

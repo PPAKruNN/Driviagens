@@ -3,8 +3,8 @@ import ErrorEnum from "./ErrorEnum.js";
 function DBError(PGError, resource = "Resource") {
 
     // Debug
-    console.log("[Debug] DbError: ")
-    console.log(PGError);
+    // console.log("[Debug] DbError: ")
+    // console.log(PGError);
     
     const data = {}
 
@@ -13,9 +13,15 @@ function DBError(PGError, resource = "Resource") {
             data.message = `${resource} already exists!`;
             data.type = ErrorEnum.duplicate;
         break;
+
+        case '23503': // pgsql fkey_violation;
+            data.message = `${resource} does not have existing origin or destination city!`;
+            data.type = ErrorEnum.unknown;
+        break;
         
         default:
-            message = "Unknown error on database";
+            console.log(PGError);
+            data.message = "Unknown error on database";
         break;
 
     }

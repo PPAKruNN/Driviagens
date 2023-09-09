@@ -1,4 +1,7 @@
 export default {
     validation: "ValidationError",
-    duplicate: "DuplicationDBError"
+    duplicate: "DuplicationDBError",
+    badRoute: "BadRouteError",
+    badDate: "BadDateError",
+    unknown: "UnknownError"
 }
