@@ -1,6 +1,6 @@
 import ErrorEnum from "./ErrorEnum.js";
 
-function DBError(PGError, resource = "Resource") {
+function DBError(PGError, resource = "Resource", extras = "") {
 
     // Debug
     // console.log("[Debug] DbError: ")
@@ -15,7 +15,7 @@ function DBError(PGError, resource = "Resource") {
         break;
 
         case '23503': // pgsql fkey_violation;
-            data.message = `${resource} does not have existing origin or destination city!`;
+            data.message = `${resource} does not have existing ${extras}!`;
             data.type = ErrorEnum.unknown;
         break;
         

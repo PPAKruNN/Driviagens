@@ -8,7 +8,7 @@ async function create(origin, destination, start_date) {
 
     ])
     .catch((error) => {
-        throw DBError(error, "Flight") ;
+        throw DBError(error, "Flight", "origin or destination id") ;
     });
 
 };
