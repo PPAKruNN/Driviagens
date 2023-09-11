@@ -11,6 +11,17 @@ async function create(req, res) {
 
 };
 
+async function readTravels(req, res) {
+    
+    const { name } = req.query;
+
+    const response = await passengersService.readTravels(name)
+    
+    res.send(response);
+
+}
+
 export const passengersController = {
-    create
+    create,
+    readTravels
 };

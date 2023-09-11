@@ -5,4 +5,5 @@ export default {
     badDate: "BadDateError",
     badDateFilter: "BadDateFilterError",
     unknown: "UnknownError",
+    toomany: "TooManyResultsError"
 }
