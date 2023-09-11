@@ -15,31 +15,49 @@ async function create(origin, dest, date) {
     if(diff <= 0) throw BadDateError();
    
     await flightsRepository.create(origin, dest, flightDate.toISOString());
-    // create flight
 
 };
 
 function filterCreator(origin, destination, minDate, maxDate) {
     
     const filters = [];
+    const args = [];
+    let i = 0;
 
-    if(origin) filters.push(`orig.name = '${origin}'`);
-    if(destination) filters.push(`dest.name = '${destination}'`);
-    if(minDate && maxDate) filters.push(`start_date >= '${minDate}' AND start_date <= '${maxDate}'`);
+    if(origin) {
+        i++;
+        args.push(origin);
+        filters.push(`orig.name = $${i}`);
+    }
+    if(destination) {
+        i++;
+        args.push(destination);
+        filters.push(`dest.name = $${i}`);
+    }
+    if(minDate && maxDate) {
+        i++;
+        args.push(minDate);
+        filters.push(`start_date >= $${i} `);
+
+        i++
+        args.push(maxDate);
+        filters.push(`start_date <= $${i}
+ `);
+    }
 
     if(filters.length === 0) return "";
     const whereString = `WHERE ${filters.join(" AND ")}`
     
     console.log(whereString);
-    return whereString;
+    return { whereString, args };
 
 }
     
 
 async function read(origin, destination, minDate, maxDate) {
     
-    const whereString = filterCreator(origin, destination, minDate, maxDate);
-    const searchResult = await flightsRepository.readAll(whereString);
+    const filter = filterCreator(origin, destination, minDate, maxDate);
+    const searchResult = await flightsRepository.readAll(filter.whereString, filter.args);
 
     const flights = searchResult.map( curr => { 
         curr.start_date = dayjs(curr.start_date).format("DD-MM-YYYY");

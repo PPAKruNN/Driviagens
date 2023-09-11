@@ -13,8 +13,10 @@ async function create(origin, destination, start_date) {
 
 };
 
-async function readAll(whereString = "") {
+async function readAll(whereString = "", args) {
 
+    let queryArguments;
+    if(args) queryArguments = [...args];
 
     const result = await db.query(`
         SELECT flights.id, start_date, dest.name as destination, orig.name as origin
@@ -24,7 +26,7 @@ async function readAll(whereString = "") {
         INNER JOIN cities orig ON origin = orig.id
         ${whereString}
         ORDER BY start_date
-    `);
+    `, queryArguments);
 
     return result.rows;
 
