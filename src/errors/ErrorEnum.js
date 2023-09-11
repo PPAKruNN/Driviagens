@@ -4,6 +4,6 @@ export default {
     badRoute: "BadRouteError",
     badDate: "BadDateError",
     badDateFilter: "BadDateFilterError",
-    unknown: "UnknownError",
+    unknownError: "UnknownError",
     toomany: "TooManyResultsError"
 }

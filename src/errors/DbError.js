@@ -16,7 +16,7 @@ function DBError(PGError, resource = "Resource", extras = "") {
 
         case '23503': // pgsql fkey_violation;
             data.message = `${resource} does not have existing ${extras}!`;
-            data.type = ErrorEnum.unknown;
+            data.type = ErrorEnum.unknownError;
         break;
         
         default:
